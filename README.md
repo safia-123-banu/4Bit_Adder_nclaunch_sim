@@ -1,190 +1,305 @@
-# EXP1: 4 Bit Adder functionality verification
+# Exp-No:1 - 4 Bit Adder - Write Verilog Code and Verify the Functionality using Test-bench ( Using Frontend tool - nclaunch in cadence).
 
-## Aim:
-To write a verilog code for 4bit adder and verify the functionality using Test bench.
+**Aim:** <br>
+<br>
+&emsp;&emsp;To write a verilog code for 4bit adder and verify the functionality using Test bench.<br>
 
- Write Verilog Code
+&emsp;&emsp;&emsp;&emsp;Write Verilog Code<br>
 
- Verify the Functionality using Test-bench.
+&emsp;&emsp;&emsp;&emsp;Verify the Functionality using Test-bench.<br>
+<br>
 
-## Tool Required: 
-Functional Simulation: nclaunch Simulator (nclaunch) 
+**Tool Required:** <br>
+<br>
+&emsp;&emsp;Functional Simulation: nclaunch Simulator (nclaunch) <br>
+<br>
 
-## 4-bit Adder Design:
-To construct a 4-bit adder, need to chain together four 1-bit full adders. Each full adder computes the sum and carry for one bit of the two numbers. The carry-out from one adder feeds into the carry-in of the next adder in the sequence. This process adds the two 4-bit numbers bit by bit, with the carry propagating through each stage, resulting in a final sum and carry-out at the end.
-
-To design a 1-bit full adder, the first step is to create a truth table that represents all possible combinations of the inputs (A, B, and CIN) and the corresponding outputs (Sum(S) and COUT).
+**4-bit Adder Design:** <br>
+<br>
+&emsp;&emsp;To construct a 4-bit adder, need to chain together four 1-bit full adders. Each full adder computes the sum and carry for one bit of the two numbers. The carry-out from one adder feeds into the carry-in of the next adder in the sequence. This process adds the two 4-bit numbers bit by bit, with the carry propagating through each stage, resulting in a final sum and carry-out at the end.
+&emsp;&emsp;To design a 1-bit full adder, the first step is to create a truth table that represents all possible combinations of the inputs (A, B, and CIN) and the corresponding outputs (Sum(S) and COUT).<br>
+<br>
 
 ![image](https://github.com/user-attachments/assets/716a26b6-a449-42e0-9e2d-cdbaa4b291b9)
 
-Here’s the truth table for a 1-bit full adder:
+Here’s the truth table for a 1-bit full adder: <br>
+<br>
 
 ![tt](https://github.com/user-attachments/assets/0b3ab24f-1d7e-4a01-80ce-5e7406f4082b)
 
-### Fig 1 : Diagram and truth table of full adder
+<br>
 
-### Logic Expressions:
+**<p align="center">Fig 1 : Diagram and truth table of full adder**
 
+<br>
+
+**Logic Expressions:** <br>
+<br>
 1.	Sum (S):
    
-S=A⊕B⊕CIN
+&emsp;&emsp;S=A⊕B⊕CIN
 
-Where ⊕ represents XOR.
+&emsp;&emsp;Where ⊕ represents XOR.
 
 3.	Carry out (COUT):
    
-COUT=(A&B) | (CIN&(A^B))
+&emsp;&emsp;COUT=(A&B) | (CIN&(A^B))
+<br>
 
 ![image](https://github.com/user-attachments/assets/7d6fa554-2614-4f19-aa68-65c9e6153caa)
 
-### Fig 2:Diagram of 4 Bit Adder
+<br>
 
-## Creating Source Codes 
+**<p align="center">Fig 2:Diagram of 4 Bit Adder**
 
-	In the Terminal, type gedit <filename>.v (ex: gedit 4bitadder.v). 
+<br>
 
-	A Blank Document opens up into which the following source code can be typed down. 
+**Creating Source Codes** <br>
+<br>
+&emsp;&emsp;In the Terminal, type gedit <filename>.v (ex: gedit 4bitadder.v). <br>
 
-Note : File name should be with HDL Extension
+&emsp;&emsp;A Blank Document opens up into which the following source code can be typed down. <br>
 
-### a) Verify the Functionality 
+&emsp;&emsp;Note : File name should be with HDL Extension<br>
+<br>
 
-	Three Codes shall be written for implementation of 4-bit Adder as follows, 
+**Verilog code for 1 Bit Full adder** <br>
+```
 
-•	fa.v → Single Bit 3-Input Full Adder [Sub-Module / Function] 
+module full_adder(A,B,CIN,S,COUT);
+input A,B,CIN;
+output S,COUT;
+assign S=A^B^CIN;
+assign COUT=(A&B) | (CIN&(A^B));
+endmodule
 
-•	fa_4bit.v → Top Module for Adding 4-bit Inputs. 
+```
 
-•	fa_4bit_test.v → Test bench 
+**Verilog Code for 4 Bit Full Adder** <br>
+```
 
-*/Program to design 4 bit adder by instantiating 1 bit Full adder.also add test bench program */
-Developed by: Register Number*/
+module fulladd_4bit(A,B,C0,S,C4);
+input C0,[3:0] A,B;
+output C4,[3:0] S;
+wire C1,C2,C3;
+full_adder fa0 (A[0],B[0],C0,S[0],C1);
+full_adder fa1 (A[1],B[1],C1,S[1],C2);
+full_adder fa2 (A[2],B[2],C2,S[2],C3);
+full_adder fa3 (A[3],B[3],C3,S[3],C4);
+endmodule
 
-## Functional Simulation: 
+```
 
-	Invoke the cadence environment by type the below commands 
+**a) Verify the Functionality** <br>
+<br>
+&emsp;&emsp;Three Codes shall be written for implementation of 4-bit Adder as follows, <br>
 
-	tcsh (Invokes C-Shell) 
+&emsp;&emsp;&emsp;&emsp;fa.v → Single Bit 3-Input Full Adder [Sub-Module / Function] <br>
 
-	source /cadence/install/cshrc (mention the path of the tools) 
+&emsp;&emsp;&emsp;&emsp;fa_4bit.v → Top Module for Adding 4-bit Inputs. <br>
 
-      (The path of cshrc could vary depending on the installation destination)
+&emsp;&emsp;&emsp;&emsp;fa_4bit_test.v → Test bench <br>
+<br>
+
+**Testbench Code for 4 bit Full Adder** <br>
+```
+
+module test_4bit;
+reg [3:0] A;
+reg [3:0] B; reg C0;
+wire [3:0] S; wire C4;
+fulladd_4bit dut (A,B,C0,S,C4);
+initial begin
+A=4'b0011;B=4'b0011;C0=1'b0;
+#10;  A=4'b1011;B=4'b0111;C0=1'b1;
+#10; A=4'b1111;B=4'b1111;C0=1'b1;
+#10; $finish;
+end
+endmodule
+
+```
+
+**Functional Simulation:** <br>
+<br>
+&emsp;&emsp;Invoke the cadence environment by type the below commands <br>
+
+&emsp;&emsp;tcsh (Invokes C-Shell) <br>
+
+&emsp;&emsp;source /cadence/install/cshrc (mention the path of the tools) <br>
+
+&emsp;&emsp;```(The path of cshrc could vary depending on the installation destination)<br>```
       
-	After this you can see the window like below 
+&emsp;&emsp;After this you can see the window like below <br>
+<br>
 
-![Screenshot 2024-10-04 175913](https://github.com/user-attachments/assets/399fa413-5b87-4f88-b52a-710abacb08e1)
+![20241006_041054](https://github.com/user-attachments/assets/d9c6d73b-24f4-4e2d-9a6e-a04c6e381ab9)
 
+<br>
 
-	To Launch Simulation tool 
+**<p align="center">Fig 3:Invoke the Cadence Environment**
 
-•	linux:/> nclaunch -new& // “-new” option is used for invoking NCVERILOG for the first time for any design 
+<br>
+&emsp;&emsp;To Launch Simulation tool <br>
 
-or
+&emsp;&emsp;&emsp;&emsp;linux:/> nclaunch -new& // “-new” option is used for invoking NCVERILOG for the first time for any design <br>
 
-•	linux:/> nclaunch& // On subsequent calls to NCVERILOG 
+&emsp;&emsp;&emsp;&emsp;or<br>
 
-	It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .
+&emsp;&emsp;&emsp;&emsp;linux:/> nclaunch& // On subsequent calls to NCVERILOG <br>
 
-![Screenshot 2024-10-04 180019](https://github.com/user-attachments/assets/8668ef31-8cd6-4c2f-9b27-40f996892fc0)
+&emsp;&emsp;It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .<br>
+<br>
 
+![Picture4](https://github.com/user-attachments/assets/32e0e7a3-c868-4cf2-b00d-f49f959f19f6)
 
-	Select Multiple Step and then select “Create cds.lib File” .
+<br>
 
-	Click the cds.lib file and save the file by clicking on Save option 
+**<p align="center">Fig 4:Setting Multi-step simulation**
 
-![Screenshot 2024-10-04 180117](https://github.com/user-attachments/assets/19352130-16a1-4357-af7a-72c64c04ec95)
+<br>
+&emsp;&emsp;Select Multiple Step and then select “Create cds.lib File” .<br>
 
+&emsp;&emsp;Click the cds.lib file and save the file by clicking on Save option <br>
+<br>
 
-	Save cds.lib file and select the correct option for cds.lib file format based on the HDL Language and Libraries used. 
+![Picture5](https://github.com/user-attachments/assets/7ec7c023-972c-42a9-bed5-b54b6ec354f6)
 
-	Select “Don’t include any libraries (verilog design)” from “New cds.lib file” and click on “OK” as in below figure .
+<br>
 
-•	We are simulating verilog design without using any libraries 
+**<p align="center">Fig 5:cds.lib file Creation**
 
-•	A Click “OK” in the “nclaunch: Open Design Directory” window as shown in below figure 
+<br>
+&emsp;&emsp;Save cds.lib file and select the correct option for cds.lib file format based on the HDL Language and Libraries used. <br>
 
-![Screenshot 2024-10-04 180144](https://github.com/user-attachments/assets/86be7465-6976-4d7d-80a3-4eb29ddf7080)
+&emsp;&emsp;Select “Don’t include any libraries (verilog design)” from “New cds.lib file” and click on “OK” as in below figure .<br>
 
+&emsp;&emsp;&emsp;&emsp;We are simulating verilog design without using any libraries <br>
 
+&emsp;&emsp;&emsp;&emsp;A Click “OK” in the “nclaunch: Open Design Directory” window as shown in below figure <br>
+<br>
 
-	A ‘NCLaunch window’ appears as shown in figure below 
+![Screenshot 2024-10-05 093336](https://github.com/user-attachments/assets/8eaacf8e-98c2-4ce2-b9ac-645d919446dc)
 
-	Left side you can see the HDL files. Right side of the window has worklib and snapshots directories listed. 
+<br>
 
-	Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation .
+**<p align="center">Fig 6: Selection of Don’t include any libraries**
 
-	To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation. 
+<br>
+&emsp;&emsp;A ‘NCLaunch window’ appears as shown in figure below <br>
 
-![Screenshot 2024-10-04 180317](https://github.com/user-attachments/assets/fc49b405-7eea-48a1-b5d8-48acc52ac1fd)
+&emsp;&emsp;Left side you can see the HDL files. Right side of the window has worklib and snapshots directories listed. <br>
 
+&emsp;&emsp;Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation .<br>
 
+&emsp;&emsp;To perform the function simulation, the following three steps are involved Compilation, Elaboration and Simulation. <br>
+<br>
 
-## Step 1: Compilation:– Process to check the correct Verilog language syntax and usage 
+![Screenshot 2024-10-05 093427](https://github.com/user-attachments/assets/9f80121f-a628-4847-afd7-d094d7237048)
 
-	Inputs: Supplied are Verilog design and test bench codes 
+<br>
 
-	Outputs: Compiled database created in mapped library if successful, generates report else error reported in log file 
+**<p align="center">Fig 7: Nclaunch Window**
 
-	Steps for compilation: 
+<br>
 
-1. Create work/library directory (most of the latest simulation tools creates automatically) 
-2. Map the work to library created (most of the latest simulation tools creates automatically) 
-3. Run the compile command with compile options 
-i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v
+**Step 1: Compilation:– Process to check the correct Verilog language syntax and usage** <br>
+<br>
+&emsp;&emsp;Inputs: Supplied are Verilog design and test bench codes <br>
 
-Left side select the file and in Tools : launch verilog compiler with current selection will get enable. Click it to compile the code 
+&emsp;&emsp;Outputs: Compiled database created in mapped library if successful, generates report else error reported in log file <br>
+<br>
 
-Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation
-![Screenshot 2024-10-04 180228](https://github.com/user-attachments/assets/a14c6819-bec9-4cbd-97e1-f1ef4efb3741)
+**Steps for compilation:** <br>
+<br>
+&emsp;&emsp;1. Create work/library directory (most of the latest simulation tools creates automatically) <br>
 
+&emsp;&emsp;2. Map the work to library created (most of the latest simulation tools creates automatically) <br>
 
+&emsp;&emsp;3. Run the compile command with compile options <br>
 
-	After compilation it will come under worklib you can see in right side window
+&emsp;&emsp;i.e Cadence IES command for compile: ncverilog +access+rwc -compile fa.v<br>
 
-	Select the test bench and compile it. It will come under worklib. Under Worklib you can see the module and test-bench. 
+&emsp;&emsp;Left side select the file and in Tools : launch verilog compiler with current selection will get enable. Click it to compile the code <br>
 
-	The cds.lib file is an ASCII text file. It defines which libraries are accessible and where they are located. It contains statements that map logical library names to their physical directory paths. For this Design, you will define a library called “worklib”
+&emsp;&emsp;Worklib is the directory where all the compiled codes are stored while Snapshot will have output of elaboration which in turn goes for simulation<br>
+<br>
 
-## Step 2: Elaboration:– To check the port connections in hierarchical design 
-	Inputs: Top level design / test bench Verilog codes 
+![Screenshot 2024-10-05 093508](https://github.com/user-attachments/assets/29cbc647-b490-41bb-b378-023828234b1d)
 
-	Outputs: Elaborate database updated in mapped library if successful, generates report else error reported in log file 
+<br>
 
-	Steps for elaboration – Run the elaboration command with elaborate options 
+**<p align="center">Fig 8: Compiled database in worklib**
 
-1.	It builds the module hierarchy 
-2.	Binds modules to module instances 
-3.	Computes parameter values 
-4.	Checks for hierarchical names conflicts 
-5.	It also establishes net connectivity and prepares all of this for simulation
+<br>
+&emsp;&emsp;After compilation it will come under worklib you can see in right side window<br>
+
+&emsp;&emsp;Select the test bench and compile it. It will come under worklib. Under Worklib you can see the module and test-bench. <br>
+
+&emsp;&emsp;The cds.lib file is an ASCII text file. It defines which libraries are accessible and where they are located. It contains statements that map logical library names to their physical directory paths. For this Design, you will define a library called “worklib”<br>
+<br>
+**Step 2: Elaboration:– To check the port connections in hierarchical design** <br>
+<br>
+&emsp;&emsp;Inputs: Top level design / test bench Verilog codes <br>
+
+&emsp;&emsp;Outputs: Elaborate database updated in mapped library if successful, generates report else error reported in log file <br>
+
+&emsp;&emsp;Steps for elaboration – Run the elaboration command with elaborate options <br>
+
+&emsp;&emsp;&emsp;&emsp;1.	It builds the module hierarchy <br>
+&emsp;&emsp;&emsp;&emsp;2.	Binds modules to module instances <br>
+&emsp;&emsp;&emsp;&emsp;3.	Computes parameter values <br>
+&emsp;&emsp;&emsp;&emsp;4.	Checks for hierarchical names conflicts <br>
+&emsp;&emsp;&emsp;&emsp;5.	It also establishes net connectivity and prepares all of this for simulation<br>
    
-	After elaboration the file will come under snapshot. Select the test bench and elaborate it.
+&emsp;&emsp;After elaboration the file will come under snapshot. Select the test bench and elaborate it.<br>
+<br>
 
-![Screenshot 2024-10-04 180317](https://github.com/user-attachments/assets/75d10638-b3d5-4038-bd4d-432172598260)
+![Screenshot 2024-10-05 093552](https://github.com/user-attachments/assets/8169b828-4d0e-43de-bbf3-24916da7ebea)
 
+<br>
 
-## Step 3: Simulation: – Simulate with the given test vectors over a period of time to observe the output behaviour. 
+**<p align="center">Fig 9: Elaboration Launch Option**
 
-	Inputs: Compiled and Elaborated top level module name 
+<br>
 
-	Outputs: Simulation log file, waveforms for debugging 
+**Step 3: Simulation: – Simulate with the given test vectors over a period of time to observe the output behaviour.** <br>
+<br>
+&emsp;&emsp;Inputs: Compiled and Elaborated top level module name <br>
 
-	Simulation allow to dump design and test bench signals into a waveform 
+&emsp;&emsp;Outputs: Simulation log file, waveforms for debugging <br>
 
-	Steps for simulation – Run the simulation command with simulator options
+&emsp;&emsp;Simulation allow to dump design and test bench signals into a waveform <br>
 
-![Screenshot 2024-10-04 180411](https://github.com/user-attachments/assets/a52a64bc-a2cb-43b7-8884-248512f356f8)
+&emsp;&emsp;Steps for simulation – Run the simulation command with simulator options<br>
+<br>
 
+![Picture3](https://github.com/user-attachments/assets/0585eddd-f9cf-47cf-a00a-3e4ba261713d)
 
-![Screenshot 2024-10-04 180450](https://github.com/user-attachments/assets/ce5dcf19-178e-41c2-abff-71fce4757d2a)
+<br>
 
+**<p align="center">Fig 10: Design Browser window for simulation**
 
-![Screenshot 2024-10-04 180522](https://github.com/user-attachments/assets/83e82bd9-5b9f-45b6-9635-f34cfed860fe)
+<br>
 
+![Picture2](https://github.com/user-attachments/assets/2a4594ca-5a50-4a4f-884c-e0cdc8fb6690)
 
+<br>
 
+**<p align="center">Fig 11: Launching Simulation Waveform WindowSimulation Waveform Window**
 
+<br>
 
+![Picture1](https://github.com/user-attachments/assets/903122ee-20d7-4a10-944f-840a7f752368)
+
+<br>
+
+**<p align="center">Fig 12: Simulation Waveform Window**
+
+<br>
+
+**Result:** <br>
+<br>
+&emsp;&emsp;The functionality of a 4-bit adder was successfully verified using a test bench and simulated with the nclaunch tool.
 
 
 
