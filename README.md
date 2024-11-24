@@ -132,7 +132,8 @@ endmodule
 &emsp;&emsp;After this you can see the window like below <br>
 <br>
 
-![20241006_041054](https://github.com/user-attachments/assets/d9c6d73b-24f4-4e2d-9a6e-a04c6e381ab9)
+![Screenshot 2024-10-04 175913](https://github.com/user-attachments/assets/ea94b50b-8f43-4c61-aa9d-9679296a5e6f)
+
 
 <br>
 
@@ -150,7 +151,8 @@ endmodule
 &emsp;&emsp;It will invoke the nclaunch window for functional simulation we can compile,elaborate and simulate it using Multiple Step .<br>
 <br>
 
-![Picture4](https://github.com/user-attachments/assets/32e0e7a3-c868-4cf2-b00d-f49f959f19f6)
+![Screenshot 2024-10-04 180019](https://github.com/user-attachments/assets/ee7532c6-d7f8-4758-bb3e-c275769b01c1)
+
 
 <br>
 
@@ -162,7 +164,8 @@ endmodule
 &emsp;&emsp;Click the cds.lib file and save the file by clicking on Save option <br>
 <br>
 
-![Picture5](https://github.com/user-attachments/assets/7ec7c023-972c-42a9-bed5-b54b6ec354f6)
+![Screenshot 2024-10-04 180117](https://github.com/user-attachments/assets/fd7b04b2-9d8a-49e9-9b3a-c9426db32d63)
+
 
 <br>
 
@@ -178,7 +181,8 @@ endmodule
 &emsp;&emsp;&emsp;&emsp;A Click “OK” in the “nclaunch: Open Design Directory” window as shown in below figure <br>
 <br>
 
-![Screenshot 2024-10-05 093336](https://github.com/user-attachments/assets/8eaacf8e-98c2-4ce2-b9ac-645d919446dc)
+![Screenshot 2024-10-04 180144](https://github.com/user-attachments/assets/29304c1b-4732-4e90-9328-73b1010bba04)
+
 
 <br>
 
